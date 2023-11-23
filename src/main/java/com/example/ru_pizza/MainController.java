@@ -2,14 +2,17 @@ package com.example.ru_pizza;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainController {
 
@@ -38,6 +41,23 @@ public class MainController {
     private ImageView imgStoreOrders;
 
     @FXML
+    public void initialize() {
+
+        imgSpecialty.setOnMouseEntered(event -> {
+            Scene scene = imgSpecialty.getScene();
+            if (scene != null) {
+                scene.setCursor(Cursor.HAND);
+            }
+        });
+        imgSpecialty.setOnMouseExited(event -> {
+            Scene scene = imgSpecialty.getScene();
+            if (scene != null) {
+                scene.setCursor(Cursor.DEFAULT);
+            }
+        });
+    }
+
+    @FXML
     public void openwindow() {
         try {
             Stage stage = new Stage();
@@ -49,7 +69,7 @@ public class MainController {
             }
 
             Scene scene = new Scene(fxmlLoader.load(), 500, 600);
-            stage.setTitle("Hello!");
+            stage.setTitle("Speciality Pizza!");
 
             // Set the desired location (x, y)
             double x = 100; // Set your desired x-coordinate
@@ -62,6 +82,19 @@ public class MainController {
         } catch (IOException e) {
             e.printStackTrace(); // Handle the exception appropriately
             return;
+        }
+    }
+
+    private void handleOrderSpecialty() {
+        try{
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/Specialty_Pizza.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Speciality Pizza");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
