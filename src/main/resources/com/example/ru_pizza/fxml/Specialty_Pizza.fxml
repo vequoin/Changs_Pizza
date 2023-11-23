@@ -29,8 +29,7 @@
     <HBox spacing="20" styleClass="extra-options-box">
         <CheckBox fx:id="extraCheeseCheckBox" text="Extra Cheese" styleClass="extra-option-checkbox"/>
         <CheckBox fx:id="extraSauceCheckBox" text="Extra Sauce" styleClass="extra-option-checkbox"/>
-        <CheckBox fx:id="sauceAlfredoCheckBox" text="Alfredo Sauce" styleClass="extra-option-checkbox"/>
-        <CheckBox fx:id="sauceTomatoCheckBox" text="Tomato Sauce" styleClass="extra-option-checkbox"/>
+        <Label fx:id="sauceLabel" text="Sauce: N/A" />
     </HBox>
 
     <!-- Price Label and Buttons -->
