@@ -1,0 +1,69 @@
+/* General Styles */
+.root {
+    -fx-font-family: 'Arial', sans-serif;
+}
+
+/* ComboBox Styling */
+.pizza-combo-box {
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+}
+
+/* ImageView Styling */
+.pizza-image-view {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
+/* RadioButton Styling */
+.size-radio-button {
+    -fx-font-size: 12px;
+    -fx-text-fill: #333333;
+}
+
+/* ListView Styling */
+.toppings-list-view {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* CheckBox Styling */
+.extra-option-checkbox {
+    -fx-font-size: 12px;
+    -fx-text-fill: #333333;
+}
+
+/* Button Styling */
+.action-button {
+    -fx-background-color: #ff5722;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+.pizza-image-view {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
+/* General Styles for VBox Container */
+.vbox-container {
+    -fx-padding: 20;
+    -fx-spacing: 10;
+}
+
+.action-button:hover {
+    -fx-background-color: #e64a19;
+}
+
+/* Label Styling */
+.price-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
