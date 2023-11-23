@@ -1,41 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox fx:controller="com.example.ru_pizza.SpecialityPizzaController" xmlns:fx="http://javafx.com/fxml" spacing="20" stylesheets="@stylesSpecial.css">
+<VBox spacing="20" stylesheets="@stylesSpecial.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.example.ru_pizza.SpecialityPizzaController">
     <padding>
-        <Insets top="30" right="30" bottom="30" left="30"/>
+        <Insets bottom="30" left="30" right="30" top="30" />
     </padding>
     <!-- Pizza Selection ComboBox -->
-    <ComboBox fx:id="pizzaComboBox" promptText="Select Pizza Type" styleClass="pizza-combo-box"/>
+    <ComboBox fx:id="pizzaComboBox" promptText="Select Pizza Type" styleClass="pizza-combo-box" />
 
     <!-- Pizza Image -->
-    <ImageView fx:id="pizzaImageView" fitWidth="150" fitHeight="150" preserveRatio="true" styleClass="pizza-image-view"/>
+    <ImageView fx:id="pizzaImageView" fitHeight="150" fitWidth="150" preserveRatio="true" styleClass="pizza-image-view" />
 
     <!-- Size Selection -->
     <HBox spacing="20" styleClass="size-selection-box">
-        <RadioButton fx:id="sizeSmall" text="Small" toggleGroup="$sizeToggleGroup" styleClass="size-radio-button"/>
-        <RadioButton fx:id="sizeMedium" text="Medium" toggleGroup="$sizeToggleGroup" styleClass="size-radio-button"/>
-        <RadioButton fx:id="sizeLarge" text="Large" toggleGroup="$sizeToggleGroup" styleClass="size-radio-button"/>
+        <RadioButton fx:id="sizeSmall" styleClass="size-radio-button" text="Small">
+         <toggleGroup>
+            <ToggleGroup fx:id="sizeToggleGroup" />
+         </toggleGroup></RadioButton>
+        <RadioButton fx:id="sizeMedium" styleClass="size-radio-button" text="Medium" toggleGroup="$sizeToggleGroup" />
+        <RadioButton fx:id="sizeLarge" styleClass="size-radio-button" text="Large" toggleGroup="$sizeToggleGroup" />
     </HBox>
 
     <!-- Toppings List -->
-    <ListView fx:id="toppingsListView" prefHeight="150" styleClass="toppings-list-view"/>
+    <ListView fx:id="toppingsListView" prefHeight="150" styleClass="toppings-list-view" />
 
     <!-- Extra Options -->
     <HBox spacing="20" styleClass="extra-options-box">
-        <CheckBox fx:id="extraCheeseCheckBox" text="Extra Cheese" styleClass="extra-option-checkbox"/>
-        <CheckBox fx:id="extraSauceCheckBox" text="Extra Sauce" styleClass="extra-option-checkbox"/>
+        <CheckBox fx:id="extraCheeseCheckBox" styleClass="extra-option-checkbox" text="Extra Cheese" />
+        <CheckBox fx:id="extraSauceCheckBox" styleClass="extra-option-checkbox" text="Extra Sauce" />
         <Label fx:id="sauceLabel" text="Sauce: N/A" />
     </HBox>
 
     <!-- Price Label and Buttons -->
-    <HBox spacing="20" alignment="CENTER_RIGHT" styleClass="action-buttons-box">
-        <Label fx:id="totalPriceLabel" text="Total Price: $0.00" styleClass="price-label"/>
-        <Button fx:id="refreshButton" text="Refresh" styleClass="action-button"/>
-        <Button fx:id="confirmButton" text="Confirm" styleClass="action-button"/>
+    <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="action-buttons-box">
+        <Label fx:id="totalPriceLabel" styleClass="price-label" text="Total Price: $0.00" />
+        <Button fx:id="refreshButton" onAction="#handleRefreshAction" styleClass="action-button" text="Refresh" />
+        <Button fx:id="confirmButton" styleClass="action-button" text="Confirm" />
     </HBox>
 </VBox>

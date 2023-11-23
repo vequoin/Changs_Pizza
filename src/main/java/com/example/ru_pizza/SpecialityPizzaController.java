@@ -95,6 +95,7 @@ public class SpecialityPizzaController {
             case "Meatzza" -> "/pictures/MeatPizza.jpg";
             case "Pepperoni" -> "/pictures/PepperoniPizza.jpg";
             case "Seafood" -> "/pictures/SeafoodPizza.jpg";
+            case "PlaceHolder" -> "/pictures/PizzaSelectionPlaceholder.jpg";
             default -> throw new IllegalArgumentException("Unknown pizza type: " + pizzaName);
         };
     }
@@ -164,7 +165,19 @@ public class SpecialityPizzaController {
 
     @FXML
     private void handleRefreshAction() {
-        // Handle refresh action: reset all selections and views
+        // This method does throw a null
+            if (pizzaComboBox.getSelectionModel().getSelectedItem() != null){
+                pizzaComboBox.getSelectionModel().clearSelection();
+            }
+            sizeSmall.setSelected(false);
+            sizeMedium.setSelected(false);
+            sizeLarge.setSelected(false);
+            totalPriceLabel.setText("Total Price:");
+            // extraCheeseCheckBox, extraSauceCheckBox;
+            extraCheeseCheckBox.setSelected(false);
+            extraSauceCheckBox.setSelected(false);
+            updatePizzaImage("PlaceHolder");
+
     }
 
 
