@@ -43,16 +43,23 @@ public class MainController {
     @FXML
     public void initialize() {
 
-        imgSpecialty.setOnMouseEntered(event -> {
-            Scene scene = imgSpecialty.getScene();
+        setCursorHandOnHover(imgSpecialty);
+        setCursorHandOnHover(imgCustom);
+        setCursorHandOnHover(imgCurrentOrder);
+        setCursorHandOnHover(imgStoreOrders);
+    }
+
+    private void setCursorHandOnHover(ImageView imageView) {
+        imageView.setOnMouseEntered(event -> {
+            Scene scene = imageView.getScene();
             if (scene != null) {
-                scene.setCursor(Cursor.HAND);
+                scene.setCursor(Cursor.HAND); // Change cursor to hand
             }
         });
-        imgSpecialty.setOnMouseExited(event -> {
-            Scene scene = imgSpecialty.getScene();
+        imageView.setOnMouseExited(event -> {
+            Scene scene = imageView.getScene();
             if (scene != null) {
-                scene.setCursor(Cursor.DEFAULT);
+                scene.setCursor(Cursor.DEFAULT); // Change cursor to default
             }
         });
     }
