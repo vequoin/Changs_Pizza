@@ -1,14 +1,20 @@
 package com.example.ru_pizza;
 
+import com.example.ru_pizza.model.Pizza;
+import com.example.ru_pizza.model.PizzaMaker;
+import com.example.ru_pizza.model.Sauce;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.InputStream;
 import java.util.List;
+import java.util.Objects;
 
 public class SpecialityPizzaController {
 
+    public Label sauceLabel;
     @FXML
     private ComboBox<String> pizzaComboBox;
     @FXML
@@ -35,6 +41,9 @@ public class SpecialityPizzaController {
         sizeMedium.setToggleGroup(sizeToggleGroup);
         sizeLarge.setToggleGroup(sizeToggleGroup);
 
+        Image placeHolder = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/PizzaSelectionPlaceHolder.jpg")));
+        pizzaImageView.setImage(placeHolder);
+        sizeToggleGroup.selectToggle(sizeSmall);
         setupListeners();
 
         // Example: Populate the ComboBox with pizza names
@@ -49,20 +58,54 @@ public class SpecialityPizzaController {
         pizzaComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             updatePizzaImage(newSelection);
             updateToppingsList(newSelection);
+            displaySauceForPizza(newSelection);
         });
 
         // Listener for size selection changes
         sizeToggleGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> updatePrice());
+        pizzaComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> updatePrice());
+        sizeToggleGroup.selectedToggleProperty().addListener((obs, oldSelection, newSelection) -> updatePrice());
+        extraCheeseCheckBox.selectedProperty().addListener((obs, oldSelection, newSelection) -> updatePrice());
+        extraSauceCheckBox.selectedProperty().addListener((obs, oldSelection, newSelection) -> updatePrice());
 
         // ... Add more listeners for other interactive components
     }
 
 
     private void updatePizzaImage(String pizzaName) {
-        // Logic to update the pizza image based on selected pizza
-        // Image pizzaImage = new Image(getImagePathForPizza(pizzaName));
-        // pizzaImageView.setImage(pizzaImage);
+        try {
+            String imagePath = getImagePathForPizza(pizzaName);
+            InputStream imageStream = getClass().getResourceAsStream(imagePath);
+            if(imageStream != null) {
+                Image pizzaImage = new Image(imageStream);
+                pizzaImageView.setImage(pizzaImage);
+            } else {
+                System.err.println("Image not found: " + imagePath);
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // This will print the stack trace of the exception to the console.
+        }
     }
+
+
+    private String getImagePathForPizza(String pizzaName) {
+        return switch (pizzaName) {
+            case "Deluxe" -> "/pictures/DeluxePizza.jpg";
+            case "Supreme" -> "/pictures/SupremePizza.jpg";
+            case "Meatzza" -> "/pictures/MeatPizza.jpg";
+            case "Pepperoni" -> "/pictures/PepperoniPizza.jpg";
+            case "Seafood" -> "/pictures/SeafoodPizza.jpg";
+            default -> throw new IllegalArgumentException("Unknown pizza type: " + pizzaName);
+        };
+    }
+
+    private void displaySauceForPizza(String pizzaName) {
+        Pizza pizza = PizzaMaker.createPizza(pizzaName);
+        Sauce sauce = pizza.getSauce();
+        sauceLabel.setText("Sauce: " + sauce.toString());
+    }
+
+
 
     private void updateToppingsList(String pizzaName) {
         // Logic to update the toppings list based on selected pizza
@@ -76,6 +119,42 @@ public class SpecialityPizzaController {
 
     private void updatePrice() {
         // Logic to calculate and update the price
+        String pizzaName = pizzaComboBox.getValue();
+        Pizza pizza = PizzaMaker.createPizza(pizzaName);
+        double basePrice = pizza.price();
+        RadioButton selectedSize = (RadioButton) sizeToggleGroup.getSelectedToggle();
+        double sizePrice = getSizePrice(selectedSize);
+        // Add costs for extras
+        double extraPrice = getExtraPrice();
+
+        double totalPrice = basePrice + sizePrice + extraPrice;
+
+        // Update the total price label
+        totalPriceLabel.setText(String.format("Total Price: $%.2f", totalPrice));
+
+    }
+
+    private double getSizePrice(RadioButton selectedSize) {
+        if (selectedSize != null) {
+            return switch (selectedSize.getText()) {
+                case "Small" -> 0.00; // No additional cost for small
+                case "Medium" -> 2.00; // Additional cost for medium
+                case "Large" -> 4.00; // Additional cost for large
+                default -> 0.00; // Default case if needed
+            };
+        }
+        return 0.00; // Default to no additional cost if no size is selected
+    }
+
+    private double getExtraPrice() {
+        double extraPrice = 0.0;
+        if (extraCheeseCheckBox.isSelected()) {
+            extraPrice += 1.00; // Cost for extra cheese
+        }
+        if (extraSauceCheckBox.isSelected()) {
+            extraPrice += 1.00; // Cost for extra sauce
+        }
+        return extraPrice;
     }
 
     @FXML
