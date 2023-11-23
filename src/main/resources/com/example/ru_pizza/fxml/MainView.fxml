@@ -11,8 +11,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.geometry.Insets?>
 <BorderPane stylesheets="@stylesMain.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ru_pizza.MainController">
-
     <!-- Title -->
     <top>
         <HBox alignment="CENTER">
@@ -22,67 +22,55 @@
 
     <!-- Side Menu Buttons and Images -->
     <center>
-        <GridPane alignment="CENTER" hgap="10" style="-fx-padding: 30; -fx-border-color: black; -fx-border-width: 2; -fx-background-color: #f0f0f0; " vgap="10">
+        <GridPane alignment="CENTER" hgap="10" style="-fx-padding: 30; -fx-border-color: black; -fx-border-width: 2; -fx-background-color: #f0f0f0;" vgap="10">
             <columnConstraints>
                 <ColumnConstraints percentWidth="50" />
                 <ColumnConstraints percentWidth="50" />
             </columnConstraints>
-
-            <!-- First Button and Image -->
-            <VBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                <Button fx:id="btnSpecialty" maxHeight="1.E8" maxWidth="1.E8" onAction="#openwindow" text="Order Specialty Pizzas">
-                    <graphic>
-                        <ImageView fitHeight="160" fitWidth="160" preserveRatio="true">
-                            <image>
-                                <Image url="@../../../../pictures/CurrentOrders.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </VBox>
-
-            <!-- Second Button and Image -->
-            <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                <Button fx:id="btnCustom" maxWidth="1.0E8" text="Build Your Own Pizza">
-                    <graphic>
-                        <ImageView fitHeight="160" fitWidth="160" preserveRatio="true">
-                            <image>
-                                <Image url="@../../../../pictures/CustomPizza.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </VBox>
-
-            <!-- Third Button and Image -->
-            <VBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                <Button fx:id="btnCurrentOrder" maxWidth="1.0E8" text="Browse Current Order">
-                    <graphic>
-                        <ImageView fitHeight="160" fitWidth="160" preserveRatio="true">
-                            <image>
-                                <Image url="@../../../../pictures/SpecialityPizza.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </VBox>
-
-            <!-- Fourth Button and Image -->
-            <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                <Button fx:id="btnStoreOrders" maxWidth="1.0E8" text="Browse Store Orders">
-                    <graphic>
-                        <ImageView fitHeight="160" fitWidth="160" preserveRatio="true">
-                            <image>
-                                <Image url="@../../../../pictures/StoreOrders.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
-            </VBox>
             <rowConstraints>
                 <RowConstraints />
                 <RowConstraints />
             </rowConstraints>
+
+            <!-- First Button and Image -->
+            <VBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0" spacing="10">
+                <ImageView fx:id="imgSpecialty" fitHeight="160" fitWidth="160" preserveRatio="true" onMouseClicked="#openwindow">
+                    <image>
+                        <Image url="@../../../../pictures/SpecialityPizza.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="btnSpecialty" onAction="#openwindow" text="Order Specialty Pizzas" />
+            </VBox>
+
+            <!-- Second Button and Image -->
+            <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="10">
+                <ImageView fx:id="imgCustom" fitHeight="160" fitWidth="160" preserveRatio="true" onMouseClicked="#openwindow">
+                    <image>
+                        <Image url="@../../../../pictures/CustomPizza.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="btnCustom" onAction="#openwindow" text="Build Your Own Pizza" />
+            </VBox>
+
+            <!-- Third Button and Image -->
+            <VBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1" spacing="10">
+                <ImageView fx:id="imgCurrentOrder" fitHeight="160" fitWidth="160" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../pictures/CurrentOrders.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="btnCurrentOrder" text="Browse Current Order" />
+            </VBox>
+
+            <!-- Fourth Button and Image -->
+            <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" spacing="10">
+                <ImageView fx:id="imgStoreOrders" fitHeight="160" fitWidth="160" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../pictures/StoreOrders.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="btnStoreOrders" text="Browse Store Orders" />
+            </VBox>
         </GridPane>
     </center>
 
