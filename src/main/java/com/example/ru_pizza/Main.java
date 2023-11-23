@@ -16,7 +16,7 @@ public class Main extends Application {
             return;
         }
         Scene scene = new Scene(fxmlLoader.load(), 640, 600);
-        stage.setTitle("Hello!");
+        stage.setTitle("RUPizza!");
         stage.setScene(scene);
         stage.show();
     }
