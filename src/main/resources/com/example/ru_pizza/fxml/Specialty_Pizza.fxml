@@ -46,6 +46,6 @@
     <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="action-buttons-box">
         <Label fx:id="totalPriceLabel" styleClass="price-label" text="Total Price: $0.00" />
         <Button fx:id="refreshButton" onAction="#handleRefreshAction" styleClass="action-button" text="Refresh" />
-        <Button fx:id="confirmButton" styleClass="action-button" text="Confirm" />
+        <Button fx:id="confirmButton" styleClass="action-button" text="Confirm" onAction="#handleConfirmAction" />
     </HBox>
 </VBox>
