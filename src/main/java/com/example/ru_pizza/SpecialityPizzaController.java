@@ -161,6 +161,37 @@ public class SpecialityPizzaController {
     @FXML
     private void handleConfirmAction() {
         // Handle confirm action
+        if(pizzaComboBox.getValue() == null){
+            showAlert("Select Size","Please Select one size");
+            return;
+        }
+        Pizza pizza = PizzaMaker.createPizza(pizzaComboBox.getValue());
+        String size = pizzaComboBox.getValue();
+        pizza.setSize(getSizeForPizza(size));
+
+        pizza.setExtraCheese(extraCheeseCheckBox.isSelected());
+        pizza.setExtraCheese(extraSauceCheckBox.isSelected());
+    }
+
+
+    private Size getSizeForPizza(String size) {
+        if(sizeSmall.isSelected()){
+            return Size.SMALL;
+        }
+        else if(sizeMedium.isSelected()){
+            return Size.MEDIUM;
+        }
+        else{
+            return Size.LARGE;
+        }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML
