@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:controller="com.example.ru_pizza.BuildYouOwn" xmlns:fx="http://javafx.com/fxml" spacing="15" stylesheets="@buildYourOwnStyle.css">
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+    <!-- Pizza Selection ComboBox -->
+    <ComboBox fx:id="pizzaComboBox" promptText="Select Pizza Type" styleClass="pizza-combo-box"/>
+
+    <!-- Pizza Image -->
+    <ImageView fx:id="pizzaImageView" fitWidth="250" fitHeight="200" preserveRatio="true" styleClass="pizza-image-view"/>
+
+
+    <HBox spacing="10">
+        <VBox spacing="5">
+            <Label fx:id="availableToppingsLabel" text="Available Toppings" styleClass="list-title"/>
+            <ListView fx:id="availableToppingsListView" prefWidth="150" prefHeight="200"/>
+        </VBox>
+        <VBox alignment="CENTER" spacing="10">
+            <Button fx:id="addToppingButton" text="Add" onAction="#handleAddTopping" styleClass="topping-button"/>
+            <Button fx:id="removeToppingButton" text="Remove" onAction="#handleRemoveTopping" styleClass="topping-button"/>
+        </VBox>
+        <VBox spacing="5">
+            <Label fx:id="selectedToppingsLabel" text="Selected Toppings" styleClass="list-title"/>
+            <ListView fx:id="selectedToppingsListView" prefWidth="150" prefHeight="200"/>
+        </VBox>
+    </HBox>
+
+    <!-- Extra Options -->
+    <HBox spacing="20" styleClass="extra-options-box">
+        <CheckBox fx:id="extraCheeseCheckBox" text="Extra Cheese" styleClass="extra-option-checkbox"/>
+        <CheckBox fx:id="extraSauceCheckBox" text="Extra Sauce" styleClass="extra-option-checkbox"/>
+        <CheckBox fx:id="AlfredoSauceCheckBox" text="Alfredo Sauce" styleClass="extra-option-checkbox"/>
+        <CheckBox fx:id="TomatoSauceCheckBox" text="Tomato Sauce" styleClass="extra-option-checkbox"/>
+    </HBox>
+
+    <!-- Price Label and Buttons -->
+    <HBox spacing="20" alignment="CENTER_RIGHT" styleClass="action-buttons-box">
+        <Label fx:id="totalPriceLabel" text="Total Price: $0.00" styleClass="price-label"/>
+        <Button fx:id="refreshButton" text="Refresh" styleClass="action-button" onAction="#handleRefreshAction"/>
+        <Button fx:id="confirmButton" text="Confirm" styleClass="action-button" onAction="#handleConfirmAction"/>
+    </HBox>
+</VBox>
