@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox fx:controller="com.example.ru_pizza.BuildYouOwn" xmlns:fx="http://javafx.com/fxml" spacing="15" stylesheets="@buildYourOwnStyle.css">
+<VBox fx:controller="com.example.ru_pizza.BuildYourOwnController" xmlns:fx="http://javafx.com/fxml" spacing="15" stylesheets="@buildYourOwnStyle.css">
     <padding>
         <Insets top="30" right="30" bottom="30" left="30"/>
     </padding>

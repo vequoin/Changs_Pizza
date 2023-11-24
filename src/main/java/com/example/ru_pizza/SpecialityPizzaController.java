@@ -3,6 +3,7 @@ package com.example.ru_pizza;
 import com.example.ru_pizza.model.Pizza;
 import com.example.ru_pizza.model.PizzaMaker;
 import com.example.ru_pizza.model.Sauce;
+import com.example.ru_pizza.model.Size;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -196,18 +197,36 @@ public class SpecialityPizzaController {
 
     @FXML
     private void handleRefreshAction() {
-        // This method does throw a null
-            if (pizzaComboBox.getSelectionModel().getSelectedItem() != null){
-                pizzaComboBox.getSelectionModel().clearSelection();
-            }
+// This method now handles potential null pointer exceptions
+        if (pizzaComboBox != null && pizzaComboBox.getSelectionModel() != null && pizzaComboBox.getSelectionModel().getSelectedItem() != null) {
+            pizzaComboBox.getSelectionModel().clearSelection();
+        }
+
+        if (sizeSmall != null) {
             sizeSmall.setSelected(false);
+        }
+
+        if (sizeMedium != null) {
             sizeMedium.setSelected(false);
+        }
+
+        if (sizeLarge != null) {
             sizeLarge.setSelected(false);
+        }
+
+        if (totalPriceLabel != null) {
             totalPriceLabel.setText("Total Price:");
-            // extraCheeseCheckBox, extraSauceCheckBox;
+        }
+        if (extraCheeseCheckBox != null) {
             extraCheeseCheckBox.setSelected(false);
+        }
+
+        if (extraSauceCheckBox != null) {
             extraSauceCheckBox.setSelected(false);
+        }
             updatePizzaImage("PlaceHolder");
+
+
 
     }
 

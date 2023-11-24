@@ -64,37 +64,24 @@ public class MainController {
         });
     }
 
+
     @FXML
-    public void openwindow() {
-        try {
-            Stage stage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/Specialty_Pizza.fxml"));
-
-            if (fxmlLoader.getLocation() == null) {
-                System.err.println("Error: FXML file not found or invalid.");
-                return;
-            }
-
-            Scene scene = new Scene(fxmlLoader.load(), 500, 600);
-            stage.setTitle("Speciality Pizza!");
-
-            // Set the desired location (x, y)
-            double x = 100; // Set your desired x-coordinate
-            double y = 100; // Set your desired y-coordinate
-            stage.setX(x);
-            stage.setY(y);
-
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace(); // Handle the exception appropriately
-            return;
-        }
-    }
-
     private void handleOrderSpecialty() {
         try{
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/Specialty_Pizza.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Speciality Pizza");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleBuildYourOwn() {
+        try{
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/BuildOwn.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Speciality Pizza");

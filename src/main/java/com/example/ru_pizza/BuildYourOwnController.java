@@ -14,7 +14,7 @@ import com.example.ru_pizza.model.*;
 import java.io.InputStream;
 import java.util.Objects;
 
-public class BuildYouOwn {
+public class BuildYourOwnController {
 
     @FXML
     public CheckBox TomatoSauceCheckBox;
