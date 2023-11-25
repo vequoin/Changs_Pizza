@@ -1,9 +1,6 @@
 package com.example.ru_pizza;
 
-import com.example.ru_pizza.model.Pizza;
-import com.example.ru_pizza.model.PizzaMaker;
-import com.example.ru_pizza.model.Sauce;
-import com.example.ru_pizza.model.Size;
+import com.example.ru_pizza.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -172,6 +169,7 @@ public class SpecialityPizzaController {
 
         pizza.setExtraCheese(extraCheeseCheckBox.isSelected());
         pizza.setExtraCheese(extraSauceCheckBox.isSelected());
+        OrderBreaker.getOrder().addPizza(pizza);
     }
 
 

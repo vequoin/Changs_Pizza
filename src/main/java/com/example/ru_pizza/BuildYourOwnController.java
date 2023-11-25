@@ -230,6 +230,11 @@ public class BuildYourOwnController {
         pizza.setSauce(getSauceForPizza());
         pizza.setExtraCheese(extraCheeseCheckBox.isSelected());
         pizza.setExtraCheese(extraSauceCheckBox.isSelected());
+        OrderBreaker.getOrder().addPizza(pizza);
+        System.out.println("***ARRAY***");
+        for(Pizza Y : OrderBreaker.getOrder().getPizzas()){
+            System.out.println(Y.toString());
+        }
     }
 
     private Sauce getSauceForPizza(){

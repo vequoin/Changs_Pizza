@@ -53,12 +53,12 @@
 
             <!-- Third Button and Image -->
             <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                <ImageView fx:id="imgCurrentOrder" fitHeight="160" fitWidth="160" preserveRatio="true">
+                <ImageView fx:id="imgCurrentOrder" fitHeight="160" fitWidth="160" onMouseClicked="#handleOrderlist" preserveRatio="true">
                     <image>
                         <Image url="@../../../../pictures/CurrentOrders.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="btnCurrentOrder" text="Browse Current Order" />
+                <Button fx:id="btnCurrentOrder" onMouseClicked="#handleOrderlist" text="Browse Current Order" />
             </VBox>
 
             <!-- Fourth Button and Image -->

@@ -91,5 +91,18 @@ public class MainController {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void handleOrderlist() {
+        try{
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/Orderlist.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Speciality Pizza");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 }
