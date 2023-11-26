@@ -44,5 +44,22 @@ public class Order {
         return totalAmount + calculateTax();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Order ID: ").append(orderId).append("\n");
+        sb.append("Pizzas in Order: \n");
+
+        for (Pizza pizza : pizzas) {
+            sb.append(pizza).append("\n"); 
+        }
+
+        sb.append("Total Amount: ").append(String.format("%.2f", totalAmount)).append("\n");
+        sb.append("Sales Tax: ").append(String.format("%.2f", calculateTax())).append("\n");
+        sb.append("Order Total (with Tax): ").append(String.format("%.2f", getOrderTotal())).append("\n");
+
+        return sb.toString();
+    }
+
 
 }
