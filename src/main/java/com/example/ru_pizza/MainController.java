@@ -1,5 +1,7 @@
 package com.example.ru_pizza;
 
+import com.example.ru_pizza.model.Order;
+import com.example.ru_pizza.model.OrderBreaker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -42,11 +44,11 @@ public class MainController {
 
     @FXML
     public void initialize() {
-
         setCursorHandOnHover(imgSpecialty);
         setCursorHandOnHover(imgCustom);
         setCursorHandOnHover(imgCurrentOrder);
         setCursorHandOnHover(imgStoreOrders);
+        Order test = OrderBreaker.getOrder();
     }
 
     private void setCursorHandOnHover(ImageView imageView) {
@@ -66,25 +68,54 @@ public class MainController {
 
 
     @FXML
-    private void handleOrderSpecialty() {
-        try{
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/Specialty_Pizza.fxml"));
-            Parent root = loader.load();
+    public void openwindow() {
+        try {
             Stage stage = new Stage();
-            stage.setTitle("Speciality Pizza");
-            stage.setScene(new Scene(root));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/Specialty_Pizza.fxml"));
+
+            if (fxmlLoader.getLocation() == null) {
+                System.err.println("Error: FXML file not found or invalid.");
+                return;
+            }
+
+            Scene scene = new Scene(fxmlLoader.load(), 500, 600);
+            stage.setTitle("Speciality Pizza!");
+
+            // Set the desired location (x, y)
+            double x = 100; // Set your desired x-coordinate
+            double y = 100; // Set your desired y-coordinate
+            stage.setX(x);
+            stage.setY(y);
+
+            stage.setScene(scene);
             stage.show();
-        }catch (Exception e){
-            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception appropriately
+            return;
         }
     }
+
     @FXML
-    private void handleBuildYourOwn() {
+    private void handleOwnPizza() {
         try{
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/BuildOwn.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
-            stage.setTitle("Speciality Pizza");
+            stage.setTitle("BuildYourOwn");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleOrderlist() {
+        try{
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/OrderList.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Current Orders");
             stage.setScene(new Scene(root));
             stage.show();
         }catch (Exception e){
@@ -92,12 +123,12 @@ public class MainController {
         }
     }
     @FXML
-    private void handleOrderlist() {
+    private void handleStoreOrderlist() {
         try{
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/Orderlist.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/StoreOrder.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
-            stage.setTitle("Speciality Pizza");
+            stage.setTitle("Current Store Orders");
             stage.setScene(new Scene(root));
             stage.show();
         }catch (Exception e){
