@@ -35,6 +35,7 @@ public class StoreOrderController {
 
     private void loadStoreOrders() {
         // Assume getStoreOrders() returns a List<Order> containing all store orders
+        storeOrderList.getItems().clear();
         List<Order> orders = OrderBreaker.getStoreOrder().getOrders();
         storeOrderList.getItems().setAll(orders);
     }
@@ -48,17 +49,24 @@ public class StoreOrderController {
         });
 
         // Handle View Order Button action
-        dispatchOrderButton.setOnAction(event -> dispatchAllOrders());
+        dispatchOrderButton.setOnAction(event -> ExportOrders());
 
         // Handle Cancel Order Button action
         cancelOrderButton.setOnAction(event -> cancelSelectedOrder());
     }
 
-    private void dispatchAllOrders() {
+    private void ExportOrders() {
         Order selectedOrder = storeOrderList.getSelectionModel().getSelectedItem();
         if (selectedOrder == null) {
             showAlert("No Order Selected", "Please select an order to view.");
             return;
+        }
+        else{
+            OrderBreaker.getStoreOrder().exportToFile("filename.txt");
+            showAlert("Exported", "Order has been exported successfully.");
+            storeOrderList.getItems().clear();
+            OrderBreaker.createNewStoreOrder();
+            loadStoreOrders();
         }
     }
 
@@ -70,6 +78,8 @@ public class StoreOrderController {
         }
         else{
             OrderBreaker.getStoreOrder().getOrders().remove(selectedOrder);
+            loadStoreOrders();
+            showAlert("Cancelled", "Order has been cancelled successfully.");
         }
 
     }
