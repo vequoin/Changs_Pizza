@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 import java.io.InputStream;
 import java.util.Objects;
 
-public class BuildYouOwn {
+public class BuildYourOwnController {
 
     @FXML
     public CheckBox TomatoSauceCheckBox;

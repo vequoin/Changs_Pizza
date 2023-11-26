@@ -31,14 +31,18 @@ public class OrderlistController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        currentOrder = OrderBreaker.getOrder();
+        this.currentOrder = OrderBreaker.getOrder();
         updateOrderList();
         updateOrderDetails();
     }
 
     private void updateOrderList() {
-        orderList.getItems().setAll(currentOrder.getPizzas());
-        orderList.setCellFactory(lv -> new ListCell<>() {
+        if(currentOrder.isEmpty()){
+            showAlert("No Order","You have no orders.");
+            return;
+        }
+        this.orderList.getItems().setAll(currentOrder.getPizzas());
+        this.orderList.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Pizza item, boolean empty) {
                 super.updateItem(item, empty);

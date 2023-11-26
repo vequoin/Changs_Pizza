@@ -19,6 +19,9 @@ public class Order {
         pizzas.add(pizza);
         totalAmount += pizza.price();
     }
+    public boolean isEmpty(){
+        return pizzas.isEmpty();
+    }
 
     public int getOrderId() {
         return orderId;

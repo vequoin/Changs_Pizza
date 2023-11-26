@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.text.Text?>
 <VBox spacing="20" stylesheets="@stylesSpecial.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.example.ru_pizza.SpecialityPizzaController">
     <padding>
         <Insets bottom="30" left="30" right="30" top="30" />
@@ -45,7 +46,7 @@
     <!-- Price Label and Buttons -->
     <HBox alignment="CENTER_RIGHT" spacing="20" styleClass="action-buttons-box">
         <Label fx:id="totalPriceLabel" styleClass="price-label" text="Total Price: $" />
-        <Text fx:id="totalPriceBox" text="0.0" styleClass="price-label"/>
+        <Text fx:id="totalPrice" text="0.0" styleClass="price-label"/>
         <Button fx:id="refreshButton" onAction="#handleRefreshAction" styleClass="action-button" text="Refresh" />
         <Button fx:id="confirmButton" styleClass="action-button" text="Confirm" onAction="#handleConfirmAction" />
     </HBox>

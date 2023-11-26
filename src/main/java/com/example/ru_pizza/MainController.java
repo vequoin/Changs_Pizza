@@ -68,7 +68,7 @@ public class MainController {
 
 
     @FXML
-    public void openwindow() {
+    public void handleOrderSpecialty() {
         try {
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/Specialty_Pizza.fxml"));
@@ -96,7 +96,7 @@ public class MainController {
     }
 
     @FXML
-    private void handleOwnPizza() {
+    private void handleBuildYourOwn() {
         try{
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/BuildOwn.fxml"));
             Parent root = loader.load();
