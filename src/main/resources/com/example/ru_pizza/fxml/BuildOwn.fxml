@@ -41,7 +41,8 @@
 
     <!-- Price Label and Buttons -->
     <HBox spacing="20" alignment="CENTER_RIGHT" styleClass="action-buttons-box">
-        <Label fx:id="totalPriceLabel" text="Total Price: $0.00" styleClass="price-label"/>
+        <Label fx:id="totalPriceLabel" text="Total Price: $" styleClass="price-label"/>
+        <Text fx:id="totalPriceBox" text="0.0" styleClass="price-label"/>
         <Button fx:id="refreshButton" text="Refresh" styleClass="action-button" onAction="#handleRefreshAction"/>
         <Button fx:id="confirmButton" text="Confirm" styleClass="action-button" onAction="#handleConfirmAction"/>
     </HBox>
