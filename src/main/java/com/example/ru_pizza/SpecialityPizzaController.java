@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 import java.io.InputStream;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Objects;
 public class SpecialityPizzaController {
 
     public Label sauceLabel;
+    public Text totalPrice;
     @FXML
     private ComboBox<String> pizzaComboBox;
     @FXML
@@ -42,7 +44,6 @@ public class SpecialityPizzaController {
         Image placeHolder = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/PizzaSelectionPlaceHolder.jpg")));
         pizzaImageView.setImage(placeHolder);
         sizeToggleGroup.selectToggle(sizeSmall);
-        setupListeners();
 
         // Example: Populate the ComboBox with pizza names
         pizzaComboBox.getItems().addAll("Meatzza", "Deluxe", "Supreme","Seafood","Pepperoni"); // Replace with actual names
@@ -62,7 +63,6 @@ public class SpecialityPizzaController {
         // Listener for size selection changes
         sizeToggleGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> updatePrice());
         pizzaComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> updatePrice());
-        sizeToggleGroup.selectedToggleProperty().addListener((obs, oldSelection, newSelection) -> updatePrice());
         extraCheeseCheckBox.selectedProperty().addListener((obs, oldSelection, newSelection) -> updatePrice());
         extraSauceCheckBox.selectedProperty().addListener((obs, oldSelection, newSelection) -> updatePrice());
 
@@ -93,7 +93,6 @@ public class SpecialityPizzaController {
             case "Meatzza" -> "/pictures/MeatPizza.jpg";
             case "Pepperoni" -> "/pictures/PepperoniPizza.jpg";
             case "Seafood" -> "/pictures/SeafoodPizza.jpg";
-            case "PlaceHolder" -> "/pictures/PizzaSelectionPlaceholder.jpg";
             default -> throw new IllegalArgumentException("Unknown pizza type: " + pizzaName);
         };
     }
@@ -118,19 +117,18 @@ public class SpecialityPizzaController {
 
     private void updatePrice() {
         // Logic to calculate and update the price
+        if(pizzaComboBox.getValue() == null){
+            return;
+        }
         String pizzaName = pizzaComboBox.getValue();
         Pizza pizza = PizzaMaker.createPizza(pizzaName);
-        double basePrice = pizza.price();
         RadioButton selectedSize = (RadioButton) sizeToggleGroup.getSelectedToggle();
-        double sizePrice = getSizePrice(selectedSize);
-        // Add costs for extras
-        double extraPrice = getExtraPrice();
-
-        double totalPrice = basePrice + sizePrice + extraPrice;
-
+        pizza.setSize(getSizeForPizza());
+        pizza.setExtraCheese(extraCheeseCheckBox.isSelected());
+        pizza.setExtraSauce(extraSauceCheckBox.isSelected());
         // Update the total price label
-        totalPriceLabel.setText(String.format("Total Price: $%.2f", totalPrice));
-
+        //totalPriceLabel.setText(String.format("Total Price: $%.2f"));
+        totalPrice.setText(String.format("%.2f",pizza.price()));
     }
 
     private double getSizePrice(RadioButton selectedSize) {
@@ -164,16 +162,15 @@ public class SpecialityPizzaController {
             return;
         }
         Pizza pizza = PizzaMaker.createPizza(pizzaComboBox.getValue());
-        String size = pizzaComboBox.getValue();
-        pizza.setSize(getSizeForPizza(size));
-
+        pizza.setSize(getSizeForPizza());
         pizza.setExtraCheese(extraCheeseCheckBox.isSelected());
-        pizza.setExtraCheese(extraSauceCheckBox.isSelected());
+        pizza.setExtraSauce(extraSauceCheckBox.isSelected());
         OrderBreaker.getOrder().addPizza(pizza);
+        showAlert("Congrats", "Your pizza has been added to cart!");
     }
 
 
-    private Size getSizeForPizza(String size) {
+    private Size getSizeForPizza() {
         if(sizeSmall.isSelected()){
             return Size.SMALL;
         }
@@ -195,38 +192,8 @@ public class SpecialityPizzaController {
 
     @FXML
     private void handleRefreshAction() {
-// This method now handles potential null pointer exceptions
-        if (pizzaComboBox != null && pizzaComboBox.getSelectionModel() != null && pizzaComboBox.getSelectionModel().getSelectedItem() != null) {
-            pizzaComboBox.getSelectionModel().clearSelection();
-        }
-
-        if (sizeSmall != null) {
-            sizeSmall.setSelected(false);
-        }
-
-        if (sizeMedium != null) {
-            sizeMedium.setSelected(false);
-        }
-
-        if (sizeLarge != null) {
-            sizeLarge.setSelected(false);
-        }
-
-        if (totalPriceLabel != null) {
-            totalPriceLabel.setText("Total Price:");
-        }
-        if (extraCheeseCheckBox != null) {
-            extraCheeseCheckBox.setSelected(false);
-        }
-
-        if (extraSauceCheckBox != null) {
-            extraSauceCheckBox.setSelected(false);
-        }
-            updatePizzaImage("PlaceHolder");
-
-
-
+        // Handle refresh action: reset all selections and views
     }
 
-
+    // Additional methods as needed...
 }
