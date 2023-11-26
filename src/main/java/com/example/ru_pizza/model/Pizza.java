@@ -1,6 +1,7 @@
 package com.example.ru_pizza.model;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public abstract class Pizza {
     protected ArrayList<Topping> toppings; // Topping is an enum class
@@ -9,8 +10,9 @@ public abstract class Pizza {
     protected boolean extraSauce;
     protected boolean extraCheese;
 
+
     public Pizza() {
-        toppings = new ArrayList<>();
+        this.toppings = new ArrayList<>();
     }
 
     public abstract double price(); // Polymorphism
@@ -55,4 +57,42 @@ public abstract class Pizza {
     public void setExtraCheese(boolean extraCheese) {
         this.extraCheese = extraCheese;
     }
+
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("Pizza Size: ").append(size).append("\n");
+        builder.append("Sauce: ").append(sauce).append("\n");
+
+        if (!toppings.isEmpty()) {
+            builder.append("Toppings: ");
+            for (Topping topping : toppings) {
+                builder.append(topping).append(", ");
+            }
+            // Remove the last comma and space
+            builder.setLength(builder.length() - 2);
+            builder.append("\n");
+        } else {
+            builder.append("Toppings: None\n");
+        }
+
+        if (extraSauce) {
+            builder.append("Extra Sauce: Yes\n");
+        } else {
+            builder.append("Extra Sauce: No\n");
+        }
+
+        if (extraCheese) {
+            builder.append("Extra Cheese: Yes\n");
+        } else {
+            builder.append("Extra Cheese: No\n");
+        }
+
+        builder.append("Price: $").append(String.format("%.2f", price()));
+
+        return builder.toString();
+    }
+
 }
