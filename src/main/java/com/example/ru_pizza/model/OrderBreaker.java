@@ -13,8 +13,22 @@ public class OrderBreaker {
         }
         return order;
     }
+
+    public static Order createNewOrder(){
+        if(order != null){
+            order = new Order();
+        }
+        return order;
+    }
     public static StoreOrder getStoreOrder(){
         if(storeOrder == null){
+            storeOrder = new StoreOrder();
+        }
+        return storeOrder;
+    }
+
+    public static StoreOrder createNewStoreOrder(){
+        if(storeOrder != null){
             storeOrder = new StoreOrder();
         }
         return storeOrder;
