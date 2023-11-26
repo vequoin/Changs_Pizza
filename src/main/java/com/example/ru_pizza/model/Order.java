@@ -25,7 +25,7 @@ public class Order {
     }
 
     public List<Pizza> getPizzas() {
-        return new ArrayList<>(pizzas);
+        return this.pizzas;
     }
 
     public double getTotalAmount() {
@@ -33,7 +33,7 @@ public class Order {
     }
 
     public double calculateTax() {
-        final double TAX_RATE = 0.06625; 
+        final double TAX_RATE = 0.06625;
         return totalAmount * TAX_RATE;
     }
 
