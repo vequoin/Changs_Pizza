@@ -27,7 +27,7 @@
             <TextField fx:id="orderIDField" GridPane.columnIndex="1"/>
 
             <!-- Action Buttons -->
-            <Button fx:id="dispatchOrderButton" text="View Order" GridPane.rowIndex="1"/>
+            <Button fx:id="dispatchOrderButton" text="Export Orders" GridPane.rowIndex="1"/>
             <Button fx:id="cancelOrderButton" text="Cancel Order" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         </GridPane>
     </children>
