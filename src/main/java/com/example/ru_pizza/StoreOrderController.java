@@ -2,22 +2,22 @@ package com.example.ru_pizza;
 
 import com.example.ru_pizza.model.Order;
 import com.example.ru_pizza.model.OrderBreaker;
+import com.example.ru_pizza.model.Pizza;
 import com.example.ru_pizza.model.StoreOrder;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 public class StoreOrderController {
-
+    @FXML
+    public ComboBox<Integer> orderComboBox;
+    public TextField orderTotal;
     @FXML
     private ListView<Order> storeOrderList;
-    @FXML
-    private TextField orderIDField;
     @FXML
     private Button dispatchOrderButton;
     @FXML
@@ -26,26 +26,36 @@ public class StoreOrderController {
 
     // Initialize the controller
     public void initialize() {
-        // Populate the storeOrderList with orders
-        loadStoreOrders();
-
-        // Setup listeners or event handlers
+        loadComboBoxItems();
         setupEventHandlers();
     }
 
-    private void loadStoreOrders() {
-        // Assume getStoreOrders() returns a List<Order> containing all store orders
-        storeOrderList.getItems().clear();
+    private void loadComboBoxItems() {
         List<Order> orders = OrderBreaker.getStoreOrder().getOrders();
-        storeOrderList.getItems().setAll(orders);
+        for (Order order : orders) {
+            orderComboBox.getItems().add(order.getOrderId());
+        }
     }
 
+    private void loadStoreOrderDetails(Integer orderId) {
+        storeOrderList.getItems().clear();
+        StoreOrder storeOrder = OrderBreaker.getStoreOrder();
+        Optional<Order> orderOpt = storeOrder.getOrders().stream()
+                .filter(order -> order.getOrderId() == orderId)
+                .findFirst();
+
+        if (orderOpt.isPresent()) {
+            Order order = orderOpt.get();
+            storeOrderList.getItems().add(order);
+
+        }
+    }
     private void setupEventHandlers() {
-        // Handle selecting an order from the ListView
-        storeOrderList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                orderIDField.setText(String.valueOf(newValue.getOrderId()));
-            }
+
+        orderComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null){
+                loadStoreOrderDetails(newValue);
+        }
         });
 
         // Handle View Order Button action
@@ -53,6 +63,24 @@ public class StoreOrderController {
 
         // Handle Cancel Order Button action
         cancelOrderButton.setOnAction(event -> cancelSelectedOrder());
+        // Add a listener to the ComboBox to update the order total when a new order is selected
+        orderComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                updateOrderTotal(newValue);
+            }
+        });
+    }
+
+    private void updateOrderTotal(Integer orderId) {
+        StoreOrder storeOrder = OrderBreaker.getStoreOrder();
+        for (Order order : storeOrder.getOrders()) {
+            if (order.getOrderId() == orderId) {
+                double total = order.getOrderTotal(); // getOrderTotal() should calculate the total including tax
+                orderTotal.setText(String.format("%.2f", total));
+                return;
+            }
+        }
+        orderTotal.setText("");
     }
 
     private void ExportOrders() {
@@ -66,20 +94,31 @@ public class StoreOrderController {
             showAlert("Exported", "Order has been exported successfully.");
             storeOrderList.getItems().clear();
             OrderBreaker.createNewStoreOrder();
-            loadStoreOrders();
         }
     }
 
     private void cancelSelectedOrder() {
-        Order selectedOrder = storeOrderList.getSelectionModel().getSelectedItem();
-        if (selectedOrder == null) {
+
+        Integer selectedOrderID = orderComboBox.getValue();
+        if (selectedOrderID == null) {
             showAlert("No Order Selected", "Please select an order to cancel.");
             return;
         }
         else{
-            OrderBreaker.getStoreOrder().getOrders().remove(selectedOrder);
-            loadStoreOrders();
+            List<Order> orders = OrderBreaker.getStoreOrder().getOrders();
+            Iterator<Order> iterator = orders.iterator();
+            while (iterator.hasNext()) {
+                Order order = iterator.next();
+                if (order.getOrderId() == selectedOrderID) {
+                    iterator.remove();
+                    break;
+                }
+            }
+            orderComboBox.getItems().clear();
+            loadComboBoxItems();
+            storeOrderList.getItems().clear();
             showAlert("Cancelled", "Order has been cancelled successfully.");
+
         }
 
     }
