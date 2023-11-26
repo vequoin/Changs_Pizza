@@ -10,11 +10,12 @@ import com.example.ru_pizza.model.Topping;
 import com.example.ru_pizza.model.Pizza;
 import com.example.ru_pizza.model.PizzaMaker;
 import com.example.ru_pizza.model.*;
+import javafx.scene.text.Text;
 
 import java.io.InputStream;
 import java.util.Objects;
 
-public class BuildYourOwnController {
+public class BuildYouOwn {
 
     @FXML
     public CheckBox TomatoSauceCheckBox;
@@ -23,6 +24,7 @@ public class BuildYourOwnController {
     public CheckBox AlfredoSauceCheckBox;
     public Label availableToppingsLabel;
     public Label selectedToppingsLabel;
+    public Text totalPriceBox;
     @FXML
     private ComboBox<String> pizzaComboBox;
     @FXML
@@ -47,6 +49,7 @@ public class BuildYourOwnController {
     private Button removeToppingButton;
     @FXML
     private ListView<Topping> selectedToppingsListView;
+    private Pizza currentPizza;
 
     public void initialize(){
         Image placeHolder = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/PizzaSelectionPlaceHolder.jpg")));
@@ -67,6 +70,8 @@ public class BuildYourOwnController {
                 setText(empty ? null : item.getDescription());
             }
         });
+
+        currentPizza = PizzaMaker.createPizza("BuildYourOwn");
 
         addToppingButton.setOnAction(event ->handleAddTopping());
         removeToppingButton.setOnAction(event -> handleRemoveTopping());
@@ -89,69 +94,38 @@ public class BuildYourOwnController {
             updatePrice();
         });
 
-        selectedToppingsListView.getItems().addListener((InvalidationListener) observable -> updatePrice());
+        selectedToppingsListView.getItems().addListener((InvalidationListener) observable -> updatePizzaToppingsAndPrice());
         extraCheeseCheckBox.selectedProperty().addListener((obs, oldSelection, newSelection) -> updatePrice());
         extraSauceCheckBox.selectedProperty().addListener((obs, oldSelection, newSelection) -> updatePrice());
 
     }
 
+    private void updatePizzaToppingsAndPrice() {
+        currentPizza.getToppings().clear();
+        for (Topping topping : selectedToppingsListView.getItems()) {
+            currentPizza.addTopping(topping);
+        }
+        updatePrice();
+    }
+
     private void updatePrice() {
         if (pizzaComboBox.getValue() == null || pizzaComboBox.getValue().isEmpty()) {
             // No size selected or the selected value is empty, display $0.00
-            totalPriceLabel.setText("Total Price: $0.00");
+            totalPriceBox.setText("0.00");
             return;
         }
         // Logic to calculate and update the price
-        String pizzaSize = pizzaComboBox.getValue();
-        String pizzaName = "BuildYourOwn";
-        Pizza pizza = PizzaMaker.createPizza(pizzaName);
-        double basePrice = pizza.price();
-        double sizePrice = getSizePrice(pizzaSize);
-        double extraPrice = getExtraPrice();
-        double toppingPrice = getToppingsPrice();
-        double totalPrice = basePrice + sizePrice + extraPrice + toppingPrice;
+        String size = pizzaComboBox.getValue();
+        currentPizza.setSize(getSizeForPizza(size));
+        currentPizza.setExtraCheese(extraCheeseCheckBox.isSelected());
+        currentPizza.setExtraSauce(extraSauceCheckBox.isSelected());
+        double totalPrice = currentPizza.price();
 
         // Update the total price label
-        totalPriceLabel.setText(String.format("Total Price: $%.2f", totalPrice));
+        totalPriceBox.setText(String.format("%.2f", totalPrice));
 
     }
 
-    private double getToppingsPrice(){
-       int numberTopping = selectedToppingsListView.getItems().size();
-       if(numberTopping <= 3){
-           return 0.0;
-       }
-       else{
-           return (double)(numberTopping - 3) * 1.49;
-       }
-    }
-
-    private double getSizePrice(String selectedSize) {
-        if (selectedSize != null) {
-            return switch (selectedSize) {
-                case "Small" -> 0.00; // No additional cost for small
-                case "Medium" -> 2.00; // Additional cost for medium
-                case "Large" -> 4.00; // Additional cost for large
-                default -> 0.00; // Default case if needed
-            };
-        }
-        return 0.00;
-    }
-
-    private double getExtraPrice() {
-        double extraPrice = 0.0;
-        if (extraCheeseCheckBox.isSelected()) {
-            extraPrice += 1.00; // Cost for extra cheese
-        }
-        if (extraSauceCheckBox.isSelected()) {
-            extraPrice += 1.00; // Cost for extra sauce
-        }
-        return extraPrice;
-    }
-
-
-    private void updateToppingsList(String newSelection) {
-    }
 
     private void updatePizzaImage(String pizzaName) {
         try {
@@ -180,7 +154,11 @@ public class BuildYourOwnController {
 
     public void handleAddTopping() {
         Topping selectedTopping = availableToppingsListView.getSelectionModel().getSelectedItem();
-        if(selectedTopping != null && selectedToppingsListView.getItems().size() < 7){
+        if(selectedTopping == null){
+            showAlert("Please Select","Please Select a topping by clicking on it");
+            return;
+        }
+        if(selectedToppingsListView.getItems().size() < 7){
             availableToppingsListView.getItems().remove(selectedTopping);
             selectedToppingsListView.getItems().add(selectedTopping);
         }
@@ -220,21 +198,12 @@ public class BuildYourOwnController {
         }
         if(selectedToppingsListView.getItems().size() < 3){
             showAlert("Select Toppings","Please Select least 3 toppings");
+            return;
         }
-        Pizza pizza = PizzaMaker.createPizza("BuildYourOwn");
-        String size = pizzaComboBox.getValue();
-        pizza.setSize(getSizeForPizza(size));
-        for (Topping topping : selectedToppingsListView.getItems()) {
-            pizza.addTopping(topping);
-        }
-        pizza.setSauce(getSauceForPizza());
-        pizza.setExtraCheese(extraCheeseCheckBox.isSelected());
-        pizza.setExtraCheese(extraSauceCheckBox.isSelected());
-        OrderBreaker.getOrder().addPizza(pizza);
-        System.out.println("***ARRAY***");
-        for(Pizza Y : OrderBreaker.getOrder().getPizzas()){
-            System.out.println(Y.toString());
-        }
+        currentPizza.setSauce(getSauceForPizza());
+        OrderBreaker.getOrder().addPizza(currentPizza);
+        showAlert("Congrats", "Your pizza has been added to cart!");
+        currentPizza = PizzaMaker.createPizza("BuildYourOwn");
     }
 
     private Sauce getSauceForPizza(){
