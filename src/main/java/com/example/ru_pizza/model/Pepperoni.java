@@ -1,14 +1,24 @@
 package com.example.ru_pizza.model;
 
+/**
+ * Class for Pepperoni pizza.
+ * @author Digvijay Singh
+ * @author Arun Felix
+ */
 public class Pepperoni extends Pizza{
-
+    /**
+     * constructor to create Pepperoni object.
+     */
     public Pepperoni(){
         super();
         addTopping(Topping.PEPPERONI);
         setSauce(Sauce.TOMATO);
     }
 
-
+    /**
+     * returns price based on size and checkboxes set by user.
+     * @return price of pizza
+     */
     @Override
     public double price() {
 

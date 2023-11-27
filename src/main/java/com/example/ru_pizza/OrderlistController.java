@@ -10,7 +10,11 @@ import javafx.scene.control.Alert.AlertType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**
+ * Controller class for the orderlist window.
+ * @author Arun Felix
+ * @author Digvijay Singh
+ */
 public class OrderlistController implements Initializable {
 
     public TextField totalCostField;
@@ -36,6 +40,9 @@ public class OrderlistController implements Initializable {
         updateOrderDetails();
     }
 
+    /**
+     * populates the list in ordering window.
+     */
     private void updateOrderList() {
         if(currentOrder.isEmpty()){
             showAlert("No Order","You have no orders.");
@@ -51,6 +58,9 @@ public class OrderlistController implements Initializable {
         });
     }
 
+    /**
+     * updates the text elements in field based on the cost of the order + tax.
+     */
     private void updateOrderDetails() {
         orderNumberField.setText(String.valueOf(currentOrder.getOrderId()));
         subtotalField.setText(String.format("%.2f", currentOrder.getTotalAmount()));
@@ -60,6 +70,9 @@ public class OrderlistController implements Initializable {
         totalCostField.setText(String.format("%.2f", getTotalAmt+getTotalTax));
     }
 
+    /**
+     * handles logic when place order button is pressed.
+     */
     @FXML
     private void handlePlaceOrderAction() {
         if(currentOrder.getPizzas().isEmpty()){
@@ -75,6 +88,9 @@ public class OrderlistController implements Initializable {
         currentOrder = OrderBreaker.createNewOrder();
     }
 
+    /**
+     * Handles logic when user removes pizza.
+     */
     @FXML
     private void handleRemovePizzaAction() {
         Pizza selectedPizza = orderList.getSelectionModel().getSelectedItem();
@@ -87,6 +103,11 @@ public class OrderlistController implements Initializable {
         }
     }
 
+    /**
+     * handles alerts
+     * @param title, the title displayed on window
+     * @param content, the content on the alert.
+     */
     private void showAlert(String title, String content) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle(title);

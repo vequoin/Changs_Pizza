@@ -1,5 +1,10 @@
 package com.example.ru_pizza.model;
 
+/**
+ * enum class containing all the toppings.
+ * @author Digvijay Singh
+ * @author Arun Felix
+ */
 public enum Topping {
     PEPPERONI("Spicy Italian Pepperoni"),
     MUSHROOMS("Fresh Mushrooms"),

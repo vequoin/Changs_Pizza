@@ -1,8 +1,14 @@
 package com.example.ru_pizza.model;
 
-
+/**
+ * Class for the Deluxe pizza type
+ * @author Digvijay Singh
+ * @author Arun Felix
+ */
 public class Meatzza extends Pizza{
-
+    /**
+     * constructor for Meatzza pizzaq
+     */
     public Meatzza(){
         addTopping(Topping.PEPPERONI);
         addTopping(Topping.HAM);
@@ -10,6 +16,10 @@ public class Meatzza extends Pizza{
         addTopping(Topping.BEEF);
         setSauce(Sauce.TOMATO);
     }
+    /**
+     * calculates price based on size and user preferences.
+     * @return price of pizza.
+     */
     @Override
     public double price() {
         double price = 16.99;

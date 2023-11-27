@@ -16,6 +16,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Controller class for the main application window.
+ * @author Arun Felix
+ * @author Digvijay Singh
+ */
+
 public class MainController {
 
     @FXML
@@ -42,6 +48,9 @@ public class MainController {
     @FXML
     private ImageView imgStoreOrders;
 
+    /**
+     * Initializes the controller. Sets up event handlers and initializes UI components.
+     */
     @FXML
     public void initialize() {
         setCursorHandOnHover(imgSpecialty);
@@ -51,6 +60,11 @@ public class MainController {
         Order test = OrderBreaker.getOrder();
     }
 
+    /**
+     * Sets the cursor to hand on hover for the specified ImageView.
+     *
+     * @param imageView The ImageView to which the cursor behavior is applied.
+     */
     private void setCursorHandOnHover(ImageView imageView) {
         imageView.setOnMouseEntered(event -> {
             Scene scene = imageView.getScene();
@@ -66,7 +80,10 @@ public class MainController {
         });
     }
 
-
+    /**
+     * Handles the event when the "Order Specialty" button is clicked.
+     * Opens a new stage with the Specialty Pizza view.
+     */
     @FXML
     public void handleOrderSpecialty() {
         try {
@@ -95,45 +112,57 @@ public class MainController {
         }
     }
 
+    /**
+     * Handles the event when the "Build Your Own" button is clicked.
+     * Opens a new stage with the Build Your Own Pizza view.
+     */
     @FXML
     private void handleBuildYourOwn() {
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/BuildOwn.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("BuildYourOwn");
             stage.setScene(new Scene(root));
             stage.show();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Handles the event when the "Order List" button is clicked.
+     * Opens a new stage with the Order List view.
+     */
     @FXML
     private void handleOrderlist() {
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/OrderList.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Current Orders");
             stage.setScene(new Scene(root));
             stage.show();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Handles the event when the "Store Order List" button is clicked.
+     * Opens a new stage with the Store Order List view.
+     */
     @FXML
     private void handleStoreOrderlist() {
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/example/ru_pizza/fxml/StoreOrder.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Current Store Orders");
             stage.setScene(new Scene(root));
             stage.show();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }

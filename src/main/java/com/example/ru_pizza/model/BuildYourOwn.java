@@ -1,7 +1,13 @@
 package com.example.ru_pizza.model;
 
+/**
+ * This class contains the pizza users can customize.
+ */
 public class BuildYourOwn extends Pizza{
-
+    /**
+     * calculates the price of pizza based on options, size, toppings
+     * @return the price of pizza.
+     */
     @Override
     public double price() {
         double basePrice = 8.99;

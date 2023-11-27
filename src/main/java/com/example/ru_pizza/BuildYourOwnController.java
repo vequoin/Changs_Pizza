@@ -15,6 +15,11 @@ import javafx.scene.text.Text;
 import java.io.InputStream;
 import java.util.Objects;
 
+/**
+ * The controller class that handles all backend far the BuildYourOwn scene.
+ * @author Arun Felix
+ * @author Digvijay Singh
+ */
 public class BuildYourOwnController {
 
     @FXML
@@ -51,6 +56,9 @@ public class BuildYourOwnController {
     private ListView<Topping> selectedToppingsListView;
     private Pizza currentPizza;
 
+    /**
+     * Initializes and sets up scene items
+     */
     public void initialize(){
         Image placeHolder = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/PizzaSelectionPlaceHolder.jpg")));
         pizzaImageView.setImage(placeHolder);
@@ -88,6 +96,9 @@ public class BuildYourOwnController {
         setupListeners();
     }
 
+    /**
+     * Sets up event listeners to update the UI based on user interactions.
+     */
     private void setupListeners() {
         pizzaComboBox.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             updatePizzaImage(newSelection);
@@ -99,7 +110,9 @@ public class BuildYourOwnController {
         extraSauceCheckBox.selectedProperty().addListener((obs, oldSelection, newSelection) -> updatePrice());
 
     }
-
+    /**
+     * Updates the toppings and price of the pizza based on the selected toppings.
+     */
     private void updatePizzaToppingsAndPrice() {
         currentPizza.getToppings().clear();
         for (Topping topping : selectedToppingsListView.getItems()) {
@@ -107,7 +120,9 @@ public class BuildYourOwnController {
         }
         updatePrice();
     }
-
+    /**
+     * Updates the displayed price based on the selected pizza size, toppings, and additional options.
+     */
     private void updatePrice() {
         if (pizzaComboBox.getValue() == null || pizzaComboBox.getValue().isEmpty()) {
             // No size selected or the selected value is empty, display $0.00
@@ -126,7 +141,11 @@ public class BuildYourOwnController {
 
     }
 
-
+    /**
+     * Updates the displayed image of the pizza based on the selected pizza.
+     *
+     * @param pizzaName The name of the selected pizza.
+     */
     private void updatePizzaImage(String pizzaName) {
         try {
             String imagePath = getImagePathForPizza(pizzaName);
@@ -142,7 +161,12 @@ public class BuildYourOwnController {
         }
     }
 
-
+    /**
+     * Retrieves the image path for a specific pizza size.
+     *
+     * @param pizzaName The name of the pizza size.
+     * @return The image path for the specified pizza size.
+     */
     private String getImagePathForPizza(String pizzaName) {
         return switch (pizzaName) {
             case "Small" -> "/pictures/SmallPizza.jpg";
@@ -151,7 +175,10 @@ public class BuildYourOwnController {
             default -> throw new IllegalArgumentException("Unknown pizza type: " + pizzaName);
         };
     }
-
+    /**
+     * Handles the event when the "Add Topping" button is clicked.
+     * Adds the selected topping to the pizza.
+     */
     public void handleAddTopping() {
         Topping selectedTopping = availableToppingsListView.getSelectionModel().getSelectedItem();
         if(selectedTopping == null){
@@ -168,6 +195,11 @@ public class BuildYourOwnController {
         
     }
 
+    /**
+     * displays alert
+     * @param title, the title that's displayed on top of alert.
+     * @param message, the content inside the alert.
+     */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);
@@ -175,7 +207,10 @@ public class BuildYourOwnController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
+    /**
+     * Handles the event when the "Remove Topping" button is clicked.
+     * Removes the selected topping from the pizza.
+     */
     @FXML
     public void handleRemoveTopping() {
         Topping selectedTopping = selectedToppingsListView.getSelectionModel().getSelectedItem();
@@ -186,6 +221,9 @@ public class BuildYourOwnController {
         
     }
 
+    /**
+     * Handles the action when order button is pressed
+     */
     @FXML
     private void handleConfirmAction() {
         if(pizzaComboBox.getValue() == null){
@@ -206,6 +244,10 @@ public class BuildYourOwnController {
         currentPizza = PizzaMaker.createPizza("BuildYourOwn");
     }
 
+    /**
+     * gets the Sauce based on AlfredoSauceCheckBox.
+     * @return Sauce Alfredo or Tomato.
+     */
     private Sauce getSauceForPizza(){
         if(AlfredoSauceCheckBox.isSelected()){
             return Sauce.ALFREDO;
@@ -215,6 +257,11 @@ public class BuildYourOwnController {
         }
     }
 
+    /**
+     * gets the size of pizza based on the choicebox.
+     * @param size from the size box
+     * @return Size of pizza
+     */
     private Size getSizeForPizza(String size){
         return switch (size) {
             case "Small" -> Size.SMALL;
@@ -224,8 +271,4 @@ public class BuildYourOwnController {
         };
     }
 
-    @FXML
-    private void handleRefreshAction() {
-        // Handle refresh action: reset all selections and views
-    }
 }

@@ -1,8 +1,15 @@
 package com.example.ru_pizza.model;
 
+/**
+ * Class for the Deluxe pizza type
+ * @author Digvijay Singh
+ * @author Arun Felix
+ */
 public class Deluxe extends Pizza{
 
-
+    /**
+     * deluxe constructor.
+     */
     public Deluxe(){
         super();
         addTopping(Topping.PEPPERONI);
@@ -13,6 +20,10 @@ public class Deluxe extends Pizza{
         setSauce(Sauce.TOMATO);
     }
 
+    /**
+     * calculates price based on size and user preferences.
+     * @return price of pizza.
+     */
     @Override
     public double price() {
         double price = 14.99;

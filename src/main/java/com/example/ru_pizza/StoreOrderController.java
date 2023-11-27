@@ -5,14 +5,24 @@ import com.example.ru_pizza.model.OrderBreaker;
 import com.example.ru_pizza.model.Pizza;
 import com.example.ru_pizza.model.StoreOrder;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class StoreOrderController {
+/**
+ * Controller class for StoreOrder window
+ * @author Digvijay Singh
+ * @author Arun Felix
+ */
+public class StoreOrderController implements Initializable {
     @FXML
     public ComboBox<Integer> orderComboBox;
     public TextField orderTotal;
@@ -22,14 +32,24 @@ public class StoreOrderController {
     private Button dispatchOrderButton;
     @FXML
     private Button cancelOrderButton;
-
-
-    // Initialize the controller
+    /**
+     * initializes the controller.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        initialize();
+    }
+    /**
+     * helper for initializing the controller.
+     */
     public void initialize() {
         loadComboBoxItems();
         setupEventHandlers();
     }
 
+    /**
+     * loads orders to orders list
+     */
     private void loadComboBoxItems() {
         List<Order> orders = OrderBreaker.getStoreOrder().getOrders();
         for (Order order : orders) {
@@ -37,6 +57,10 @@ public class StoreOrderController {
         }
     }
 
+    /**
+     * loads the order details given an orderID.
+     * @param orderId, a unique ID assigned to the order.
+     */
     private void loadStoreOrderDetails(Integer orderId) {
         storeOrderList.getItems().clear();
         StoreOrder storeOrder = OrderBreaker.getStoreOrder();
@@ -50,6 +74,10 @@ public class StoreOrderController {
 
         }
     }
+
+    /**
+     * sets up the event handlers for elements
+     */
     private void setupEventHandlers() {
 
         orderComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -59,7 +87,7 @@ public class StoreOrderController {
         });
 
         // Handle View Order Button action
-        dispatchOrderButton.setOnAction(event -> ExportOrders());
+        dispatchOrderButton.setOnAction(event -> exportOrders());
 
         // Handle Cancel Order Button action
         cancelOrderButton.setOnAction(event -> cancelSelectedOrder());
@@ -71,6 +99,10 @@ public class StoreOrderController {
         });
     }
 
+    /**
+     * updates order total label.
+     * @param orderId, ID for order.
+     */
     private void updateOrderTotal(Integer orderId) {
         StoreOrder storeOrder = OrderBreaker.getStoreOrder();
         for (Order order : storeOrder.getOrders()) {
@@ -83,20 +115,44 @@ public class StoreOrderController {
         orderTotal.setText("");
     }
 
-    private void ExportOrders() {
+    /**
+     * Allows user to export orderlist to text file, allowing user to select location.
+     */
+    private void exportOrders() {
         Order selectedOrder = storeOrderList.getSelectionModel().getSelectedItem();
         if (selectedOrder == null) {
             showAlert("No Order Selected", "Please select an order to view.");
             return;
         }
-        else{
-            OrderBreaker.getStoreOrder().exportToFile("filename.txt");
+
+        // Create a FileChooser
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Order File");
+
+        // Set extension filters if needed
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        // Show save file dialog
+        Stage stage = (Stage) storeOrderList.getScene().getWindow(); // Assuming your control is inside a stage
+        java.io.File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            // User chose a file
+            String filePath = file.getAbsolutePath();
+
+            // Export the order to the selected file
+            OrderBreaker.getStoreOrder().exportToFile(filePath);
+
             showAlert("Exported", "Order has been exported successfully.");
             storeOrderList.getItems().clear();
             OrderBreaker.createNewStoreOrder();
         }
     }
 
+    /**
+     * removes order from list if cancelled.
+     */
     private void cancelSelectedOrder() {
 
         Integer selectedOrderID = orderComboBox.getValue();
@@ -123,6 +179,11 @@ public class StoreOrderController {
 
     }
 
+    /**
+     * displays alert
+     * @param title, title of alert.
+     * @param content, content of alert.
+     */
     private void showAlert(String title, String content) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle(title);
@@ -130,4 +191,6 @@ public class StoreOrderController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
+
 }
