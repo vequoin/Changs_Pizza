@@ -79,4 +79,50 @@ class BuildYourOwnTest {
         buildYourOwn.size = Size.LARGE;
         assertEquals((12.99 + (4 * 1.49)),buildYourOwn.price());
     }
+    @Test
+    void extrasauce(){
+        BuildYourOwn buildYourOwn = new BuildYourOwn();
+        buildYourOwn.toppings.add(Topping.PINEAPPLE);
+        buildYourOwn.toppings.add(Topping.SAUSAGE);
+        buildYourOwn.toppings.add(Topping.HAM);
+        buildYourOwn.toppings.add(Topping.PEPPERONI);
+        buildYourOwn.toppings.add(Topping.MUSHROOMS);
+        buildYourOwn.toppings.add(Topping.ONIONS);
+        buildYourOwn.toppings.add(Topping.BEEF);
+        buildYourOwn.size = Size.LARGE;
+        buildYourOwn.setExtraSauce(true);
+        assertEquals(19.95,buildYourOwn.price());
+    }
+    @Test
+    void extracheese(){
+        BuildYourOwn buildYourOwn = new BuildYourOwn();
+        buildYourOwn.toppings.add(Topping.PINEAPPLE);
+        buildYourOwn.toppings.add(Topping.SAUSAGE);
+        buildYourOwn.toppings.add(Topping.HAM);
+        buildYourOwn.toppings.add(Topping.PEPPERONI);
+        buildYourOwn.toppings.add(Topping.MUSHROOMS);
+        buildYourOwn.toppings.add(Topping.ONIONS);
+        buildYourOwn.toppings.add(Topping.BEEF);
+        buildYourOwn.size = Size.LARGE;
+        buildYourOwn.setExtraCheese(true);
+        assertEquals(19.95,buildYourOwn.price());
+    }
+
+    @Test
+    void extracheesensauce(){
+        BuildYourOwn buildYourOwn = new BuildYourOwn();
+        buildYourOwn.toppings.add(Topping.PINEAPPLE);
+        buildYourOwn.toppings.add(Topping.SAUSAGE);
+        buildYourOwn.toppings.add(Topping.HAM);
+        buildYourOwn.toppings.add(Topping.PEPPERONI);
+        buildYourOwn.toppings.add(Topping.MUSHROOMS);
+        buildYourOwn.toppings.add(Topping.ONIONS);
+        buildYourOwn.toppings.add(Topping.BEEF);
+        buildYourOwn.size = Size.LARGE;
+        buildYourOwn.setExtraCheese(true);
+        buildYourOwn.setExtraSauce(true);
+        assertEquals(20.95,buildYourOwn.price());
+    }
+
+
 }
