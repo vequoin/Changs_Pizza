@@ -63,6 +63,9 @@ class BuildYourOwnTest {
         assertEquals((12.99 + 1.49),buildYourOwn.price());
     }
 
+    /**
+     * testing two extra toppings
+     */
     @Test
     void maxextratoppinglarge() {
         BuildYourOwn buildYourOwn = new BuildYourOwn();

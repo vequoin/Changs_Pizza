@@ -1,0 +1,1 @@
+moduleSearchIndex = [{"l":"com.example.ru_pizza"}];updateSearchResults();
