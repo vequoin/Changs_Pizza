@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.geometry.Insets?>
+<VBox prefHeight="500.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ru_pizza.StoreOrderController" stylesheets="@stylesSpecial.css" spacing="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+
+
+    <!-- Title Text -->
+    <Text text="Store Orders" style="-fx-font-size: 20px;"/>
+
+    <!-- ComboBox for Order Selection -->
+    <GridPane hgap="10" vgap="10">
+        <!-- ComboBox in the first column -->
+        <ComboBox fx:id="orderComboBox" promptText="Select Order ID" maxWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+
+        <!-- HBox with Text and TextField in the second column -->
+        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <!-- Text label -->
+            <Text text="Order Total:"/>
+            <!-- TextField -->
+            <TextField fx:id="orderTotal"/>
+        </HBox>
+    </GridPane>
+
+
+    <!-- ListView for Orders -->
+    <ListView fx:id="storeOrderList" prefHeight="300.0" prefWidth="600.0"/>
+
+    <!-- Order Details GridPane -->
+    <GridPane vgap="10">
+        <columnConstraints>
+            <ColumnConstraints minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints minWidth="10.0" prefWidth="200.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+        </rowConstraints>
+
+        <!-- Action Buttons -->
+        <Button fx:id="dispatchOrderButton" text="Export Orders" GridPane.rowIndex="1"/>
+        <Button fx:id="cancelOrderButton" text="Cancel Order" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    </GridPane>
+
+</VBox>

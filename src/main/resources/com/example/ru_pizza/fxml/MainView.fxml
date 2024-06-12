@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane stylesheets="@stylesMain.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ru_pizza.MainController">
+    <!-- Title -->
+    <top>
+        <HBox alignment="CENTER">
+            <Label style="-fx-font-size: 24px; -fx-alignment: center" text="RU Pizza" />
+        </HBox>
+    </top>
+
+    <!-- Side Menu Buttons and Images -->
+    <center>
+        <GridPane alignment="CENTER" hgap="10" style="-fx-padding: 30; -fx-border-color: black; -fx-border-width: 2; -fx-background-color: #f0f0f0;" vgap="10">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="50" />
+                <ColumnConstraints percentWidth="50" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+
+            <!-- First Button and Image -->
+            <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <ImageView fx:id="imgSpecialty" fitHeight="160" fitWidth="160" onMouseClicked="#handleOrderSpecialty" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../pictures/SpecialityPizza.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="btnSpecialty" onAction="#handleOrderSpecialty" text="Order Specialty Pizzas" />
+            </VBox>
+
+            <!-- Second Button and Image -->
+            <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <ImageView fx:id="imgCustom" fitHeight="160" fitWidth="160" onMouseClicked="#handleBuildYourOwn" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../pictures/CustomPizza.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="btnCustom" onAction="#handleBuildYourOwn" text="Build Your Own Pizza" />
+            </VBox>
+
+            <!-- Third Button and Image -->
+            <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <ImageView fx:id="imgCurrentOrder" fitHeight="160" fitWidth="160" onMouseClicked="#handleOrderlist" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../pictures/CurrentOrders.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="btnCurrentOrder" onMouseClicked="#handleOrderlist" text="Browse Current Order" />
+            </VBox>
+
+            <!-- Fourth Button and Image -->
+            <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <ImageView fx:id="imgStoreOrders" fitHeight="160" fitWidth="160" preserveRatio="true" onMouseClicked="#handleStoreOrderlist">
+                    <image>
+                        <Image url="@../../../../pictures/StoreOrders.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="btnStoreOrders" text="Browse Store Orders" onAction="#handleStoreOrderlist"/>
+            </VBox>
+        </GridPane>
+    </center>
+
+    <!-- Status Bar at Bottom -->
+    <bottom>
+        <HBox>
+            <Label text="Status: Ready" />
+            <!-- Additional status bar elements here -->
+        </HBox>
+    </bottom>
+</BorderPane>

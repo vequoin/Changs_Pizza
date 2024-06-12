@@ -1,0 +1,67 @@
+.pizza-combo-box {
+    /* Style for pizza type ComboBox */
+    -fx-font-size: 12px;
+    -fx-padding: 5px;
+}
+
+.pizza-image-view {
+    /* Style for pizza ImageView */
+    -fx-effect: dropshadow(three-pass-box, black, 10, 0, 0, 0);
+}
+
+.extra-options-box {
+    /* Style for the HBox containing extra options */
+    -fx-alignment: center;
+}
+
+.extra-option-checkbox {
+    /* Style for checkboxes in extra options */
+    -fx-font-size: 12px;
+}
+
+.action-buttons-box {
+    /* Style for the HBox containing the action buttons */
+    -fx-alignment: center;
+}
+
+.action-button {
+    /* General style for action buttons */
+    -fx-background-color: #faa500;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 15px;
+    -fx-border-radius: 2px;
+    -fx-background-radius: 5px;
+}
+
+.price-label {
+    /* Style for the price label */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.topping-button {
+    -fx-background-color: #2a9d8f; /* Green background */
+    -fx-text-fill: white; /* White text */
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px; /* Rounded border */
+    -fx-padding: 10px 20px; /* Padding */
+    -fx-font-size: 12px; /* Font size */
+    -fx-font-weight: bold; /* Font weight */
+}
+
+.topping-button:hover {
+    -fx-background-color: #45a049;
+}
+
+.list-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px; /* Some padding */
+    -fx-text-fill: #333;
+}
+
+
+
